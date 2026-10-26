@@ -1,96 +1,78 @@
-
 # Credit Score Prediction Using Machine Learning
 
-## 📌 Project Overview
+A supervised machine-learning project that explores customer financial data and predicts one of three recorded credit-score categories: **Poor**, **Standard**, or **Good**.
 
-This project uses machine learning classification techniques to predict customer credit score categories based on financial and credit-related information.
+> **Project scope:** The supplied brief used the title “Paisabazaar Banking Fraud Analysis,” but the dataset and target column describe credit-score categories, not a fraud label. This repository therefore focuses on **credit-score prediction**, not fraud detection.
 
-The goal is to explore the dataset, preprocess the data, train classification models, and compare their performance to identify a suitable model for credit score prediction.
+## Project objectives
 
-## 🎯 Objectives
+- Inspect the dataset and identify data-quality issues.
+- Explore class balance and relationships among financial features.
+- Prepare numerical and categorical features for modeling.
+- Compare a majority-class baseline with Random Forest and Logistic Regression.
+- Evaluate model performance with accuracy, macro F1, a classification report, and a confusion matrix.
+- Examine the effect of `Credit_Mix` and estimate permutation feature importance.
+- Save and reload the selected preprocessing-and-model pipeline.
 
-* Explore and understand customer financial data.
-* Clean the dataset and handle missing or placeholder values.
-* Perform Exploratory Data Analysis (EDA) to identify patterns.
-* Prepare numerical and categorical features for machine learning.
-* Train and compare multiple classification models.
-* Evaluate model performance using appropriate metrics.
-* Examine feature importance and the impact of selected features.
-* Save and reload the trained model for future predictions.
+## Notebook
 
-## 🛠️ Technologies Used
+[Open the complete project notebook](Credit_Score_Prediction_Project_Submission.ipynb).
 
-* Python
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Scikit-learn
-* Joblib
-* Google Colab
-* Jupyter Notebook
+The notebook contains the exploratory analysis, preprocessing, model training, evaluation, sensitivity check, feature-importance analysis, conclusion, and model-saving workflow.
 
-## 🤖 Machine Learning Models
+## Tools and libraries
 
-The notebook explores the following approaches:
+- Python
+- pandas and NumPy
+- Matplotlib and Seaborn
+- scikit-learn
+- Joblib
+- Google Colab / Jupyter Notebook
 
-* **Dummy Classifier:** Establishes a baseline for model comparison.
-* **Random Forest Classifier:** Predicts credit score categories using an ensemble of decision trees.
-* **Logistic Regression:** Provides a linear classification approach for comparison.
+## Modeling workflow
 
-The models are compared using accuracy and macro F1-score.
+1. **Data inspection and cleaning:** review columns, types, missing values, duplicates, and target distribution; convert known placeholder strings to missing values.
+2. **Exploratory data analysis:** examine target balance, distributions, payment-delay patterns, `Credit_Mix`, numerical correlations, and income versus outstanding debt.
+3. **Feature preparation:** predict `Credit_Score`; exclude identifiers and `Month`; omit `Type_of_Loan` because its combined text has many distinct values.
+4. **Customer-level split:** use `GroupShuffleSplit` so records from one customer are not shared between training and test sets.
+5. **Baseline and models:** compare a most-frequent `DummyClassifier`, a `RandomForestClassifier`, and `LogisticRegression`.
+6. **Evaluation and interpretation:** compare accuracy and macro F1, inspect class-level metrics and confusion matrix, run a `Credit_Mix` sensitivity check, and calculate permutation importance.
+7. **Save and reload:** save the complete selected pipeline and reports, then reload the pipeline and test it on held-out rows.
 
-## 🔍 Project Workflow
+## Results
 
-1. Load and inspect the dataset.
-2. Clean missing values and placeholder entries.
-3. Perform exploratory data analysis.
-4. Prepare features and target labels.
-5. Split the data by customer to reduce data leakage.
-6. Build preprocessing pipelines.
-7. Train and compare classification models.
-8. Evaluate the selected model.
-9. Analyze feature importance and perform sensitivity analysis.
-10. Save, reload, and test the trained model.
+The notebook calculates the metrics from the current run and prints them in the model-comparison and conclusion sections. **Numerical scores are intentionally not reproduced here until they have been verified from a completed notebook run.** Refer to those outputs for the actual baseline, Random Forest, Logistic Regression, and selected-model results.
 
-## 📊 Evaluation
+## Dataset and running the notebook
 
-Model performance is assessed using:
+The notebook expects a file named `dataset-2.csv` at this Google Drive path:
 
-* Accuracy
-* Macro F1-score
-* Classification report
-* Confusion matrix
-* Permutation feature importance
+```text
+/content/drive/MyDrive/Credit_Score_Project/dataset-2.csv
+```
 
-The notebook contains the detailed evaluation results.
+To run it in Google Colab:
 
-## 📁 Repository Contents
+1. Open the notebook in Colab.
+2. Make the dataset available at the path above, or change `file_path` to the location you use.
+3. Run the cells in order from the beginning.
+4. The notebook saves the model and CSV reports to the `Credit_Score_Project` folder in Google Drive.
 
-* `Credit_Score_Prediction_Project_Submission.ipynb` — Complete project notebook.
+The dataset is **not included in this repository**. Make sure you have permission to access and use it before attempting to reproduce the results. The notebook uses Google Colab's Drive integration, so a local Jupyter setup may require changes to the data and output paths.
 
-## 🚀 How to Run
+## Important limitations
 
-1. Open the notebook in Google Colab or Jupyter Notebook.
-2. Make the dataset available in your environment.
-3. Update the dataset file path if necessary.
-4. Install any missing dependencies.
-5. Run the notebook cells in order.
+- Results are specific to this dataset and the customer-level train/test split; they do not establish production readiness.
+- The source and prediction-time availability of `Credit_Mix` should be verified because the notebook explicitly checks how performance changes when it is removed.
+- The age-below-18 cleaning rule is an assumption that should be confirmed against the data source.
+- Further validation on an independent or later-period dataset, hyperparameter tuning, and fairness assessment would be needed before considering any real-world use.
+- This is an educational credit-score classification project. It does **not** detect banking fraud and should not be used on its own for lending decisions.
 
-**Note:** The original notebook uses Google Drive to load the dataset and save model artifacts. You may need to adjust the file paths when running it in a different environment.
+## Author
 
-## ⚠️ Limitations
-
-* Model performance depends on the quality and representativeness of the dataset.
-* Predictions should not be treated as definitive financial or lending decisions.
-* Further testing, model tuning, and validation on independent data would be needed before any real-world deployment.
-
-## 👨‍💻 Author
-
-**Himanshu Shrivastava**
-
-Computer Science Engineering Graduate | Aspiring AI/ML Practitioner
+**Himanshu Shrivastava**  
+Computer Science Engineering | Aspiring AI/ML Practitioner
 
 ---
 
-*This project was developed as part of an AI/ML internship project.*
+*Developed as part of an AI/ML internship project.*
