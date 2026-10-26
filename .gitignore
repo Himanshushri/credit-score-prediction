@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local data and generated model artifacts
+dataset-2.csv
+*.joblib
+credit_score_model_comparison.csv
+credit_score_classification_report.csv
+credit_score_feature_importance.csv
+
+# Environment files
+.venv/
+venv/
+.env
